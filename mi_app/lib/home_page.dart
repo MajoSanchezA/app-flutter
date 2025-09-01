@@ -64,7 +64,10 @@ class _HomePageState extends State<HomePage> {
         },
         backgroundColor: Colors.indigo,
         icon: const Icon(Icons.refresh),
-        label: const Text("Cambiar estados"),
+        label: const Text(
+          "Cambiar estados",
+          style: TextStyle(color: Colors.black),
+        ),
       ),
     );
   }
