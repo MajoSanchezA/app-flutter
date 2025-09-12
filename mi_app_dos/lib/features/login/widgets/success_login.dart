@@ -12,66 +12,79 @@ class InitialWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Card(
-        elevation: 8,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        margin: const EdgeInsets.symmetric(horizontal: 24),
-
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF8BBD0),
+          borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            color: const Color(0xFFD81B60),
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.pinkAccent.withOpacity(0.10),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 32.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 "Iniciar Sesión",
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: const TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF880E4F),
+                  letterSpacing: 0.2,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
-
-              Text("Cédula"),
+              Text("Cédula", style: TextStyle(fontFamily: 'Montserrat', color: Color(0xFFAD1457), fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
-
               TextField(
                 maxLength: 10,
-                cursorColor: Colors.blueAccent,
+                cursorColor: Color(0xFFD81B60),
                 controller: cedulaController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.blueAccent, 
+                      color: Color(0xFFD81B60),
                       width: 2
                     )
                   ),
                   hintText: "Ingrese su cédula",
-                  prefixIcon: Icon(Icons.badge_outlined),
+                  prefixIcon: Icon(Icons.badge_outlined, color: Color(0xFFD81B60)),
                 ),
               ),
               const SizedBox(height: 16),
-
-              Text("Nombre"),
+              Text("Nombre", style: TextStyle(fontFamily: 'Montserrat', color: Color(0xFFAD1457), fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
-              
               TextField(
-                cursorColor: Colors.blueAccent,
+                cursorColor: Color(0xFFD81B60),
                 controller: nombreController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.blueAccent, 
+                      color: Color(0xFFD81B60),
                       width: 2
                     )
                   ),
                   hintText: "Ingrese su nombre",
-                  prefixIcon: Icon(Icons.person_outline),
+                  prefixIcon: Icon(Icons.person_outline, color: Color(0xFFD81B60)),
                 ),
               ),
               const SizedBox(height: 24),
-
               ElevatedButton.icon(
                 onPressed: () {
                   final cedulaText = cedulaController.text.trim();
@@ -91,15 +104,15 @@ class InitialWidget extends StatelessWidget {
                   final cedula = int.tryParse(cedulaText) ?? 0;
                   context.read<LoginBloc>().add(CreateUserEvent(cedula: cedula, nombre: nombre));
                 },
-                icon: Icon(Icons.person_add, size: 24,),
-                label: Text("Crear Usuario", style: TextStyle(color: Colors.white),),
+                icon: Icon(Icons.person_add, size: 24, color: Colors.white),
+                label: Text("Crear Usuario", style: TextStyle(color: Colors.white, fontFamily: 'Montserrat', fontWeight: FontWeight.w600)),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: Color(0xFFD81B60),
                   iconColor: Colors.white,
-                  padding: const EdgeInsets.all(25),
-                  textStyle: const TextStyle(fontSize: 20),
+                  padding: const EdgeInsets.all(22),
+                  textStyle: const TextStyle(fontSize: 20, fontFamily: 'Montserrat', fontWeight: FontWeight.w600),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),

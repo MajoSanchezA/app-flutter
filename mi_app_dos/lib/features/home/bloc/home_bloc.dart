@@ -7,13 +7,13 @@ import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
 import 'package:mi_app_dos/models/user.dart';
 
-part 'home_info_event.dart';
-part 'home_info_state.dart';
+part 'home_event.dart';
+part 'home_state.dart';
 
-class HomeInfoBloc extends Bloc<HomeInfoEvent, HomeInfoState> {
-  HomeInfoBloc() : super(HomeInfoInitial()) {
-    on<CargarHomeInfo>((event, emit) async{
-      emit(HomeInfoLoading());
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  HomeBloc() : super(HomeInitial()) {
+    on<CargarHome>((event, emit) async{
+      emit(HomeLoading());
 
       try {
         final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
@@ -27,23 +27,23 @@ class HomeInfoBloc extends Bloc<HomeInfoEvent, HomeInfoState> {
                     .whereType<Map<String, dynamic>>()
                     .map((e) => User.fromJson(e))
                     .toList();
-            emit(HomeInfoSuccess(users));
+            emit(HomeSuccess(users));
           } else {
             print("Error: La respuesta no es una lista");
-            emit(HomeInfoFailed());
+            emit(HomeFailure());
           }
         } else {
           print("Error: Código de estado ${response.statusCode}");
-          emit(HomeInfoFailed());
+          emit(HomeFailure());
         }
       } catch (e) {
         print("Error al realizar la petición: $e");
-        emit(HomeInfoFailed());
+        emit(HomeFailure());
       }
     });
 
-    on<RetryHomeInfo>((event, emit) async{
-      emit(HomeInfoLoading());
+    on<RetryHome>((event, emit) async{
+      emit(HomeLoading());
     });
   }
 }

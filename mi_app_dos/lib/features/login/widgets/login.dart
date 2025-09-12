@@ -1,15 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mi_app_dos/features/login/widgets/loading_login.dart' show LoadingLoginWidget;
+import '../../home/widgets/home.dart';
+import '../bloc/login_bloc.dart';
+import 'failure_login.dart';
+import 'success_login.dart';
 
-import 'bloc/login_bloc.dart';
-import 'widgets/failed_widget.dart';
-import 'widgets/initial_widget.dart';
-import 'widgets/loading_widget.dart';
 
-import '../../views/home.dart';
-
-class LoginContainer extends StatelessWidget {
-  const LoginContainer({super.key});
+class LoginCondition extends StatelessWidget {
+  const LoginCondition({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +27,27 @@ class LoginContainer extends StatelessWidget {
         if (state is LoginInitial) {
           return InitialWidget();
         } else if (state is LoginLoading) {
-          return Center(child: LoadingWidget());
+          return Center(child: LoadingLoginWidget());
         } else if (state is LoginFailed) {
-          return Center(child: FailedWidget());
+          return Center(child: FailureLoginWidget());
         } else {
           return SizedBox.shrink();
         }
       },
+    );
+  }
+}
+
+
+
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => LoginBloc(),
+      child: LoginCondition(),
     );
   }
 }
